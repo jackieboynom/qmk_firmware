@@ -21,7 +21,6 @@ enum layers {
   _QWERTY,
   _FN,
   _CODE,
-  _i3,
   _ADJUST
 };
 
@@ -39,7 +38,7 @@ CTL_T(KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,SFT_T(KC_ENT),\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                LM(_i3, MOD_LALT), KC_LALT, MO(_FN),  MO(_CODE),  KC_SPC,   KC_NO \
+                                          KC_LALT, MO(_FN),  KC_SPC,     KC_SPC,MO(_CODE),  KC_NO \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -51,7 +50,7 @@ CTL_T(KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TRNS,   KC_NO, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R,                      KC_LEFT, KC_DOWN,KC_RIGHT, KC_PGDN,KC__VOLDOWN,KC__VOLUP,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO, KC_TRNS, MO(_FN),MO(_ADJUST),   KC_NO,   KC_NO \
+                                          KC_TRNS, MO(_FN), KC_TRNS,    KC_TRNS,MO(_ADJUST),KC_NO \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -63,19 +62,7 @@ CTL_T(KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                     
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
         KC_NO,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                        KC_NO, KC_MINS,  KC_EQL, KC_LBRC, KC_RBRC, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO,   KC_NO,MO(_ADJUST),MO(_CODE),  KC_NO,   KC_NO \
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-  [_i3] = LAYOUT( \
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_NO,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   KC_NO,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_MINS,  KC_EQL,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_LBRC, KC_RBRC,   KC_NO,   KC_NO,   KC_NO,  KC_ENT,\
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO,   KC_NO,   KC_NO,      KC_NO,  KC_SPC,   KC_NO \
+                                          KC_TRNS,MO(_ADJUST),KC_TRNS,  KC_TRNS,MO(_CODE),  KC_NO \
                                       //`--------------------------'  `--------------------------'
   ),
 
@@ -131,9 +118,7 @@ void render_first_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if (layer_state_is(_i3)) {
-        oled_write_P(i3_layer, false);
-    } else if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(_ADJUST)) {
         oled_write_P(adjust_layer, false);
     } else if(layer_state_is(_FN)) {
         oled_write_P(fn_layer, false);
@@ -177,9 +162,7 @@ void render_second_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if (layer_state_is(_i3)) {
-        oled_write_P(i3_layer, false);
-    } else if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(_ADJUST)) {
         oled_write_P(adjust_layer, false);
     } else if(layer_state_is(_FN)) {
         oled_write_P(fn_layer, false);
@@ -223,9 +206,7 @@ void render_third_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if (layer_state_is(_i3)) {
-        oled_write_P(i3_layer, false);
-    } else if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(_ADJUST)) {
         oled_write_P(adjust_layer, false);
     } else if(layer_state_is(_FN)) {
         oled_write_P(fn_layer, false);
