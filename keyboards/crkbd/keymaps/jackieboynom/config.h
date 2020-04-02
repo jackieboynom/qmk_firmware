@@ -51,6 +51,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define OLED_FONT_H "keyboards/crkbd/keymaps/jackieboynom/glcdfont.c"
 
+/* Mouse Constant Mode also changing KC_ACL1 defaults */
+#define MK_3_SPEED
+#define MK_C_OFFSET_1		8
+#define MK_C_INTERVAL_1 	16
+#define MK_W_OFFSET_1		1
+#define MK_W_INTERVAL_1		20
+
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
