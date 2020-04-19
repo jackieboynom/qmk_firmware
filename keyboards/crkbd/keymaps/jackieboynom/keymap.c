@@ -18,63 +18,62 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum layers {
-  _QWERTY,
-  _FN,
-  _CODE,
-  _ADJUST
+  QWERTY,
+  FNUC,
+  CODE,
+  ADJ
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT( \
+  [QWERTY] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-CTL_T(KC_ESC),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
+       KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,SFT_T(KC_ENT),\
+      KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_LALT, MO(_FN),     KC_SPC,MO(_CODE),MO(_FN) \
+                                          KC_LGUI,MO(FNUC),SFT_T(KC_ENT),KC_SPC,MO(CODE), KC_RALT \
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_FN] = LAYOUT( \
+  [FNUC] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,\
+        KC_F1,   KC_F2, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                      KC_HOME,  KC_END, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS,   KC_NO, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,   KC_NO,KC__MUTE,\
+        KC_F3,   KC_F4, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS,   KC_NO, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_HOME,  KC_END, KC_PGUP, KC_PGDN,KC__VOLDOWN,KC__VOLUP,\
+      _______,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,                       KC_F10,  KC_F11,  KC_F12,KC__MUTE,KC__VOLDOWN,KC__VOLUP,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_TRNS, MO(_FN),    KC_TRNS,MO(_ADJUST),MO(_FN) \
+                                          XXXXXXX,MO(FNUC), XXXXXXX,    XXXXXXX, MO(ADJ), _______ \
                                       //`--------------------------'  `--------------------------'
   ),
 
-  [_CODE] = LAYOUT( \
+  [CODE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_NO, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,\
+      XXXXXXX, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-        KC_NO,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_TILD,  KC_GRV,\
+      XXXXXXX,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_TILD,  KC_GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_TRNS,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      KC_UNDS, KC_MINS, KC_PLUS,  KC_EQL, KC_BSLS, KC_PIPE,\
+      _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      KC_UNDS, KC_MINS, KC_PLUS,  KC_EQL, KC_BSLS, KC_PIPE,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI, KC_TRNS,MO(_ADJUST), KC_TRNS,MO(_CODE),MO(_ADJUST) \
+                                          XXXXXXX,MO(ADJ),  XXXXXXX,    XXXXXXX,MO(CODE), XXXXXXX \
                                       //`--------------------------'  `--------------------------' 
   ),
 
-  [_ADJUST] = LAYOUT( \
+  [ADJ] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET,  RGBRST, EEP_RST,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+        RESET,  RGBRST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,   KC_NO,                        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,\
+      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                            KC_NO,   KC_NO,MO(_ADJUST),   KC_NO,MO(_ADJUST),MO(_ADJUST) \
+                                          XXXXXXX, MO(ADJ), XXXXXXX,    XXXXXXX, MO(ADJ), XXXXXXX \
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -118,11 +117,11 @@ void render_first_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(ADJ)) {
         oled_write_P(adjust_layer, false);
-    } else if(layer_state_is(_FN)) {
+    } else if(layer_state_is(FNUC)) {
         oled_write_P(fn_layer, false);
-    } else if(layer_state_is(_CODE)) {
+    } else if(layer_state_is(CODE)) {
         oled_write_P(code_layer, false);
     } else {
         oled_write_P(qwerty_layer, false);
@@ -162,11 +161,11 @@ void render_second_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(ADJ)) {
         oled_write_P(adjust_layer, false);
-    } else if(layer_state_is(_FN)) {
+    } else if(layer_state_is(FNUC)) {
         oled_write_P(fn_layer, false);
-    } else if(layer_state_is(_CODE)) {
+    } else if(layer_state_is(CODE)) {
         oled_write_P(code_layer, false);
     } else {
         oled_write_P(qwerty_layer, false);
@@ -206,11 +205,11 @@ void render_third_line(uint8_t modifiers) {
 
     oled_write_P(corne_logo, false);
 
-    if(layer_state_is(_ADJUST)) {
+    if(layer_state_is(ADJ)) {
         oled_write_P(adjust_layer, false);
-    } else if(layer_state_is(_FN)) {
+    } else if(layer_state_is(FNUC)) {
         oled_write_P(fn_layer, false);
-    } else if(layer_state_is(_CODE)) {
+    } else if(layer_state_is(CODE)) {
         oled_write_P(code_layer, false);
     } else {
         oled_write_P(qwerty_layer, false);
