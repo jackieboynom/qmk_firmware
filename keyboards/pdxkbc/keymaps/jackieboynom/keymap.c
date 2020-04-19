@@ -31,15 +31,15 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_DEFAULT] = LAYOUT(
-      KC_VOLU,            KC_VOLD,
-      KC_MUTE,            LINE,
-      MO(_WAVEXCHANGE),   KC_NO
+      LINE,         KC_VOLU,
+      KC_MUTE,      KC_VOLD,
+      XXXXXXX,      MO(_WAVEXCHANGE)
     ),
 
     [_WAVEXCHANGE] = LAYOUT(
-      STARTPORTAL,    RESTARTPORTAL,
-      STARTSERVER,    RESTARTSERVER,
-      KC_TRNS,        KC_NO
+      STARTPORTAL,  RESTARTPORTAL,
+      STARTSERVER,  RESTARTSERVER,
+      XXXXXXX,      KC_TRNS
     )
 };
 
