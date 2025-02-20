@@ -7,11 +7,9 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 static uint32_t oled_timer = 0;
 #endif
-
-extern uint8_t is_master;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -45,9 +43,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
         KC_F1,   KC_F2, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                      KC_HOME,  KC_END, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   KC_F3, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,KC__MUTE, XXXXXXX,\
+      _______,   KC_F3, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MUTE, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_F9,  KC_F10,  KC_F11,  KC_F12,KC__VOLDOWN,KC__VOLUP,\
+      _______,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_VOLD, KC_VOLU,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           XXXXXXX,MO(FNUC), XXXXXXX,    XXXXXXX, MO(ADJ), _______ \
                                       //`--------------------------'  `--------------------------'
@@ -67,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ADJ] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        RESET,  RGBRST, EEP_RST, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      QK_BOOT,  RGBRST,  EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -86,10 +84,10 @@ void matrix_init_user(void) {
     #endif
 }
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    if (!is_master) {
-        return OLED_ROTATION_180; 
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180; // flips the display 180 degrees if offhand
     }
     return rotation;
 }
@@ -232,8 +230,8 @@ void render_third_line(uint8_t modifiers) {
     }
 }
 
-void oled_task_user(void) {
-    if (!is_master) {
+bool oled_task_user(void) {
+    if (!is_keyboard_master()) {
         //render_blank_line();
         render_first_line(get_mods()|get_oneshot_mods());
         render_second_line(get_mods()|get_oneshot_mods());
@@ -244,12 +242,13 @@ void oled_task_user(void) {
         render_second_line(get_mods()|get_oneshot_mods());
         render_third_line(get_mods()|get_oneshot_mods());
     }
+    return false;
 }
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        #ifdef OLED_DRIVER_ENABLE
+        #ifdef OLED_ENABLE
         oled_timer = timer_read32();
         #endif
     }
