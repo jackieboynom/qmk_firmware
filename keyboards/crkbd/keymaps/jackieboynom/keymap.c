@@ -19,11 +19,13 @@ enum layers {
   QWERTY,
   FNUC,
   CODE,
-  ADJ
+  ADJ,
+  AIC
 };
 
 enum custom_keycodes {
-  RGBRST = SAFE_RANGE
+  RGBRST = SAFE_RANGE,
+  TOOLS_1
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -41,37 +43,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FNUC] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_F1,   KC_F2, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,                      KC_HOME,  KC_END, KC_PGUP, KC_PGDN, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_D,                      KC_HOME,  KC_END, KC_PGUP, KC_PGDN, XXXXXXX, KC_VOLU,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   KC_F3, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_MUTE, XXXXXXX,\
+      XXXXXXX,   KC_F1, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U,                      KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,  KC_F12, KC_VOLD,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,                        KC_F9,  KC_F10,  KC_F11,  KC_F12, KC_VOLD, KC_VOLU,\
+      _______,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                        KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11, KC_MUTE,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX,MO(FNUC), XXXXXXX,    XXXXXXX, MO(ADJ), _______ \
+                                          _______,MO(FNUC), XXXXXXX,    XXXXXXX, MO(ADJ), _______ \
                                       //`--------------------------'  `--------------------------'
   ),
 
   [CODE] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,\
+      KC_TILD, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_TILD,  KC_GRV,\
+       KC_GRV,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_PIPE, KC_BSLS,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      KC_UNDS, KC_MINS, KC_PLUS,  KC_EQL, KC_BSLS, KC_PIPE,\
+      _______,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,                      KC_UNDS, KC_MINS, KC_PLUS,  KC_EQL, XXXXXXX, XXXXXXX,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX,MO(ADJ),  XXXXXXX,    XXXXXXX,MO(CODE), XXXXXXX \
-                                      //`--------------------------'  `--------------------------' 
+                                          XXXXXXX, MO(AIC), XXXXXXX,    XXXXXXX,MO(CODE), _______ \
+                                      //`--------------------------'  `--------------------------'
   ),
 
   [ADJ] = LAYOUT( \
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      QK_BOOT,  RGBRST,  EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       EE_CLR, XXXXXXX, XXXXXXX, XXXXXXX,  RGBRST,  QK_RBT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, RGB_SPI, RGB_VAI, RGB_SAI, RGB_HUI, RGB_TOG,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, RGB_SPD, RGB_VAD, RGB_SAD, RGB_HUD, RGB_MOD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          XXXXXXX, MO(ADJ), XXXXXXX,    XXXXXXX, MO(ADJ), XXXXXXX \
+                                          XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, MO(ADJ), XXXXXXX \
+                                      //`--------------------------'  `--------------------------'
+  ),
+
+  [AIC] = LAYOUT( \
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, TOOLS_1, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,\
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                          XXXXXXX, MO(AIC), XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX \
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -268,6 +282,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             #endif
             break;
+        case TOOLS_1: //sum marketplace and usage, remove marketplace cells in billing
+            if (record->event.pressed) {
+                SEND_STRING("=sum(" SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_UP) SS_DELAY(50) "+" SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_ENT) SS_DELAY(50));
+
+                SEND_STRING(SS_TAP(X_UP) SS_DELAY(50));
+
+                SEND_STRING(SS_LGUI("c") SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_UP) SS_DELAY(50));
+
+                register_code(KC_LGUI);
+                register_code(KC_LSFT);
+                SEND_STRING("v");
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LGUI);
+
+                SEND_STRING(SS_DELAY(50) SS_TAP(X_DOWN) SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50));
+
+                register_code(KC_LSFT);
+                SEND_STRING(SS_TAP(X_RIGHT) SS_DELAY(50) SS_TAP(X_RIGHT) SS_DELAY(50) SS_TAP(X_RIGHT) SS_DELAY(50));
+                unregister_code(KC_LSFT);
+
+                register_code(KC_RALT);
+                SEND_STRING("/" SS_DELAY(50));
+                unregister_code(KC_RALT);
+
+                SEND_STRING("delete cells and shift up" SS_DELAY(50) SS_TAP(X_ENT) SS_DELAY(50));
+            }
     }
     return true;
 }
