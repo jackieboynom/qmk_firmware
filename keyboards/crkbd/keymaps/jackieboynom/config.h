@@ -38,6 +38,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RETRO_TAPPING
 //#define IGNORE_MOD_TAP_INTERRUPT
 
+#ifdef SPLIT_KEYBOARD
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+#endif
+
 // #ifdef RGBLIGHT_ENABLE
 //     #undef RGBLED_NUM
 //     #define RGBLIGHT_ANIMATIONS
